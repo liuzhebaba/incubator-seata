@@ -206,6 +206,11 @@ public class DataSourceProxy extends AbstractDataSourceProxy implements Resource
     @Override
     public ConnectionProxy getConnection() throws SQLException {
         Connection targetConnection = targetDataSource.getConnection();
+        //如果是读写分离，在用aop设置主库的时候，会走这里，需要重新设置resourceId
+        if (targetConnection!=null) {
+            this.jdbcUrl = targetConnection.getMetaData().getURL();
+            initResourceId();
+        }
         return new ConnectionProxy(this, targetConnection);
     }
 
