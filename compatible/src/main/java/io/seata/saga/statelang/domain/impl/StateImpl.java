@@ -16,11 +16,16 @@
  */
 package io.seata.saga.statelang.domain.impl;
 
-import io.seata.saga.statelang.domain.State;
-import io.seata.saga.statelang.domain.StateMachine;
-
 import java.util.Map;
 
+import io.seata.saga.statelang.domain.State;
+import io.seata.saga.statelang.domain.StateMachine;
+import io.seata.saga.statelang.domain.StateType;
+
+/**
+ * The type State.
+ */
+@Deprecated
 public class StateImpl implements State {
 
     private final org.apache.seata.saga.statelang.domain.State actual;
@@ -41,8 +46,8 @@ public class StateImpl implements State {
     }
 
     @Override
-    public String getType() {
-        return actual.getType();
+    public StateType getType() {
+        return StateType.wrap(actual.getType());
     }
 
     @Override
@@ -61,6 +66,12 @@ public class StateImpl implements State {
         return StateMachineImpl.wrap(stateMachine);
     }
 
+    /**
+     * Wrap state.
+     *
+     * @param target the target
+     * @return the state
+     */
     public static StateImpl wrap(org.apache.seata.saga.statelang.domain.State target) {
         if (target == null) {
             return null;
@@ -68,6 +79,11 @@ public class StateImpl implements State {
         return new StateImpl(target);
     }
 
+    /**
+     * Unwrap org . apache . seata . saga . statelang . domain . state.
+     *
+     * @return the org . apache . seata . saga . statelang . domain . state
+     */
     public org.apache.seata.saga.statelang.domain.State unwrap() {
         return actual;
     }

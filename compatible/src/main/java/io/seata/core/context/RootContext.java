@@ -16,6 +16,7 @@
  */
 package io.seata.core.context;
 
+
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -26,10 +27,27 @@ import io.seata.core.model.BranchType;
 /**
  * The type Root context.
  */
+@Deprecated
 public class RootContext {
 
+    /**
+     * The constant KEY_XID.
+     * used for apache dubbo
+     */
+    public static final String KEY_XID = "TX_XID";
+
+    /**
+     * The constant KEY_BRANCH_TYPE
+     * * used for apache dubbo
+     */
+    public static final String KEY_BRANCH_TYPE = "TX_BRANCH_TYPE";
+
     private static BranchType convertIoSeata(org.apache.seata.core.model.BranchType branchType) {
-        return BranchType.get(branchType.name());
+        if (branchType == null) {
+            return null;
+        } else {
+            return BranchType.get(branchType.name());
+        }
     }
 
     /**

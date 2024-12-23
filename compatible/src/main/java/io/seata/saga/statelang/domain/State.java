@@ -18,6 +18,10 @@ package io.seata.saga.statelang.domain;
 
 import java.util.Map;
 
+/**
+ * The interface State.
+ */
+@Deprecated
 public interface State {
 
     /**
@@ -39,7 +43,7 @@ public interface State {
      *
      * @return the state type
      */
-    String getType();
+    StateType getType();
 
     /**
      * next state name

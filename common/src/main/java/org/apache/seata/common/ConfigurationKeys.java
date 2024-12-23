@@ -504,9 +504,15 @@ public interface ConfigurationKeys {
 
     /**
      * The constant ROLLBACK_RETRY_TIMEOUT_UNLOCK_ENABLE.
+     * This configuration is deprecated, please use {@link #ROLLBACK_FAILED_UNLOCK_ENABLE} instead.
      */
+    @Deprecated
     String ROLLBACK_RETRY_TIMEOUT_UNLOCK_ENABLE = SERVER_PREFIX + "rollbackRetryTimeoutUnlockEnable";
 
+    /**
+     * The constant ROLLBACK_FAILED_UNLOCK_ENABLE.
+     */
+    String ROLLBACK_FAILED_UNLOCK_ENABLE = SERVER_PREFIX + "rollbackFailedUnlockEnable";
     /**
      * the constant RETRY_DEAD_THRESHOLD
      */
@@ -627,6 +633,8 @@ public interface ConfigurationKeys {
      */
     @Deprecated
     String ENABLE_CLIENT_BATCH_SEND_REQUEST = TRANSPORT_PREFIX + "enableClientBatchSendRequest";
+
+    String TRANSPORT_PROTOCOL = TRANSPORT_PREFIX + "protocol";
 
     /**
      * The constant ENABLE_TM_CLIENT_BATCH_SEND_REQUEST
@@ -812,6 +820,11 @@ public interface ConfigurationKeys {
     String SERVER_ENABLE_CHECK_AUTH = SERVER_PREFIX + "enableCheckAuth";
 
     /**
+     * The constant NAMING_SERVER
+     */
+    String NAMING_SERVER = "seata";
+
+    /**
      * The constant APPLICATION_ID.
      */
     String APPLICATION_ID = "applicationId";
@@ -882,6 +895,21 @@ public interface ConfigurationKeys {
     String SERVER_RAFT = SERVER_PREFIX + "raft.";
 
     /**
+     * The constant SERVER_RAFT_SSL.
+     */
+    String SERVER_RAFT_SSL = SERVER_RAFT + "ssl.";
+
+    /**
+     * The constant SERVER_RAFT_SSL_CLIENT.
+     */
+    String SERVER_RAFT_SSL_CLIENT = SERVER_RAFT_SSL + "client.";
+
+    /**
+     * The constant SERVER_RAFT_SSL_SERVER.
+     */
+    String SERVER_RAFT_SSL_SERVER = SERVER_RAFT_SSL + "server.";
+
+    /**
      * The constant SERVER_RAFT_SERVER_ADDR.
      */
     String SERVER_RAFT_SERVER_ADDR = SERVER_RAFT + "serverAddr";
@@ -910,6 +938,42 @@ public interface ConfigurationKeys {
      * The constant SERVER_RAFT_SYNC.
      */
     String SERVER_RAFT_SYNC = SERVER_RAFT + "sync";
+
+    /**
+     * The constant SERVER_RAFT_SSL_ENABLED.
+     */
+    String SERVER_RAFT_SSL_ENABLED = SERVER_RAFT_SSL + "enabled";
+
+    /**
+     * The constant SERVER_RAFT_SSL_SERVER_KEYSTORE.
+     */
+    String SERVER_RAFT_SSL_SERVER_KEYSTORE_PATH = SERVER_RAFT_SSL_SERVER + "keystore.path";
+
+    /**
+     * The constant SERVER_RAFT_SSL_CLIENT_KEYSTORE.
+     */
+    String SERVER_RAFT_SSL_CLIENT_KEYSTORE_PATH = SERVER_RAFT_SSL_CLIENT + "keystore.path";
+
+    /**
+     * The constant SERVER_RAFT_SSL_SERVER_KEYSTORE_PASSWORD.
+     */
+    String SERVER_RAFT_SSL_SERVER_KEYSTORE_PASSWORD = SERVER_RAFT_SSL_SERVER + "keystore.password";
+
+    /**
+     * The constant SERVER_RAFT_SSL_CLIENT_KEYSTORE_PASSWORD.
+     */
+    String SERVER_RAFT_SSL_CLIENT_KEYSTORE_PASSWORD = SERVER_RAFT_SSL_CLIENT + "keystore.password";
+
+
+    /**
+     * The constant SERVER_RAFT_SSL_KEYSTORE_TYPE.
+     */
+    String SERVER_RAFT_SSL_KEYSTORE_TYPE = SERVER_RAFT_SSL + "keystore.type";
+
+    /**
+     * The constant SERVER_RAFT_SSL_KMF_ALGORITHM.
+     */
+    String SERVER_RAFT_SSL_KMF_ALGORITHM = SERVER_RAFT_SSL + "kmf.algorithm";
 
     /**
      * The constant SERVER_RAFT_MAX_APPEND_BUFFER_SIZE.
@@ -1011,4 +1075,39 @@ public interface ConfigurationKeys {
      * The constant ROCKET_MQ_MSG_TIMEOUT
      */
     String ROCKET_MQ_MSG_TIMEOUT = SERVER_PREFIX + "rocketmqMsgTimeout";
+
+    /**
+     *
+     */
+    String NAMINGSERVER_REGISTRY_PREFIX = FILE_ROOT_REGISTRY + FILE_CONFIG_SPLIT_CHAR + NAMING_SERVER + FILE_CONFIG_SPLIT_CHAR;
+
+    /**
+     *
+     */
+    String SEATA_NAMINGSERVER_REGISTRY_PREFIX = SEATA_FILE_ROOT_CONFIG + FILE_CONFIG_SPLIT_CHAR + NAMINGSERVER_REGISTRY_PREFIX;
+
+    /**
+     * The constant REGISTRY_NAMINGSERVER_CLUSTER
+     */
+    String REGISTRY_NAMINGSERVER_CLUSTER = NAMINGSERVER_REGISTRY_PREFIX + "cluster";
+
+    /**
+     * The constant VGROUP_TABLE_NAME
+     */
+    String VGROUP_TABLE_NAME = STORE_DB_PREFIX + FILE_CONFIG_SPLIT_CHAR + "vgroup-table";
+
+    /**
+     * The constant NAMESPACE_KEY
+     */
+    String NAMESPACE_KEY = SEATA_NAMINGSERVER_REGISTRY_PREFIX + "namespace";
+
+    /**
+     * The constant CLUSTER_NAME_KEY
+     */
+    String CLUSTER_NAME_KEY = SEATA_FILE_ROOT_CONFIG + FILE_CONFIG_SPLIT_CHAR + REGISTRY_NAMINGSERVER_CLUSTER;
+
+    /**
+     * The constant META_PREFIX
+     */
+    String META_PREFIX = SEATA_FILE_ROOT_CONFIG + FILE_CONFIG_SPLIT_CHAR + FILE_ROOT_REGISTRY + FILE_CONFIG_SPLIT_CHAR + "metadata.";
 }

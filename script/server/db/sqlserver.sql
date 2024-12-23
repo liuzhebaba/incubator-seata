@@ -103,23 +103,26 @@ CREATE NONCLUSTERED INDEX [idx_branch_id]
         )
 GO
 
-CREATE NONCLUSTERED INDEX [idx_xid]
-    ON [branch_table] (
-                       [xid]
-        )
-GO
-
+-- the table to store distributed lock constants
 CREATE TABLE [distributed_lock]
 (
-    [lock_key]       VARCHAR(20) NOT NULL,
-    [lock_value]     VARCHAR(20) NOT NULL,
-    [expire]         bigint,
-    PRIMARY KEY CLUSTERED ([lock_key])
-    WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON);
-)
+    [lock_key]   char(20)    not null primary key,
+    [lock_value] varchar(20) not null,
+    [expire]     bigint
+    )
 GO
 
-INSERT INTO `distributed_lock` (lock_key, lock_value, expire) VALUES ('AsyncCommitting', ' ', 0);
-INSERT INTO `distributed_lock` (lock_key, lock_value, expire) VALUES ('RetryCommitting', ' ', 0);
-INSERT INTO `distributed_lock` (lock_key, lock_value, expire) VALUES ('RetryRollbacking', ' ', 0);
-INSERT INTO `distributed_lock` (lock_key, lock_value, expire) VALUES ('TxTimeoutCheck', ' ', 0);
+INSERT INTO [distributed_lock] (lock_key, lock_value, expire) VALUES ('AsyncCommitting', ' ', 0);
+INSERT INTO [distributed_lock] (lock_key, lock_value, expire) VALUES ('RetryCommitting', ' ', 0);
+INSERT INTO [distributed_lock] (lock_key, lock_value, expire) VALUES ('RetryRollbacking', ' ', 0);
+INSERT INTO [distributed_lock] (lock_key, lock_value, expire) VALUES ('TxTimeoutCheck', ' ', 0);
+INSERT INTO [distributed_lock] (lock_key, lock_value, expire) VALUES ('UndologDelete', ' ', 0);
+
+CREATE TABLE [vgroup_table]
+(
+    [vGroup]    nvarchar(255) NOT NULL,
+    [namespace] nvarchar(255) NOT NULL,
+    [cluster]   nvarchar(255) NOT NULL,
+    PRIMARY KEY CLUSTERED ([vGroup])
+        WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+)
